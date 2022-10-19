@@ -8,6 +8,8 @@ function getComputerChoice() {
     }
 }
 
+
+
 function gameInstance(playerSelection, computerSelection) {
     if (playerSelection.toLowerCase() == "paper") {
         if (computerSelection == "rock")
@@ -35,3 +37,27 @@ function gameInstance(playerSelection, computerSelection) {
             return "You win! Rock beats Scissors";
     }
 }
+
+function game() {
+    let wins = 0, losses = 0, ties = 0;
+    let result = '';
+    for (let i = 0; i < 5; i++) {
+        result = gameInstance(prompt(),"rock");
+        if (result.includes("You lose"))
+            losses++;
+        else if (result.includes("You win"))
+            wins++;
+        else
+            ties++;
+        console.log(result);
+    }
+
+    if(ties == 5 || wins == losses)
+        console.log("Nobody wins the set.");
+    else if (wins > losses)
+        console.log("You won the set!");
+    else
+        console.log("You lose the set.");
+
+}
+console.log(game());
