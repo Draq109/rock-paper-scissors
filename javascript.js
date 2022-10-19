@@ -8,7 +8,12 @@ function getComputerChoice() {
     }
 }
 
-
+function validInput(str) {
+    return (/^[a-zA-Z]+$/.test(str) && 
+    str.toLowerCase() == "rock" || 
+    str.toLowerCase() == "paper" || 
+    str.toLowerCase() == "scissors")
+}
 
 function gameInstance(playerSelection, computerSelection) {
     if (playerSelection.toLowerCase() == "paper") {
@@ -40,9 +45,14 @@ function gameInstance(playerSelection, computerSelection) {
 
 function game() {
     let wins = 0, losses = 0, ties = 0;
-    let result = '';
+    let result = '', playerInput;
     for (let i = 0; i < 5; i++) {
-        result = gameInstance(prompt(),"rock");
+        playerInput = prompt();
+        while (!validInput(playerInput)) {
+            console.log("Please give a valid input. (rock/paper/scissors)")
+            playerInput = prompt();
+        }
+        result = gameInstance(playerInput,"rock");
         if (result.includes("You lose"))
             losses++;
         else if (result.includes("You win"))
