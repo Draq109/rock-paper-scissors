@@ -49,7 +49,7 @@ let rock = document.querySelector('#rock');
 let paper = document.querySelector('#paper');
 let scissors = document.querySelector('#scissors');
 let para = document.querySelector('.paragraph');
-let tryAgain = document.querySelector('.restart');
+let tryAgain = document.querySelector('.restart-button');
 
 if (wins + losses + ties < 5) {
     rock.addEventListener('click', () => {
