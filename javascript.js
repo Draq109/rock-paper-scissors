@@ -9,10 +9,10 @@ function getComputerChoice() {
 }
 
 function validInput(str) {
-    return (/^[a-zA-Z]+$/.test(str) && 
-    str.toLowerCase() == "rock" || 
-    str.toLowerCase() == "paper" || 
-    str.toLowerCase() == "scissors")
+    return (/^[a-zA-Z]+$/.test(str) &&
+        str.toLowerCase() == "rock" ||
+        str.toLowerCase() == "paper" ||
+        str.toLowerCase() == "scissors")
 }
 
 function gameInstance(playerSelection, computerSelection) {
@@ -43,31 +43,113 @@ function gameInstance(playerSelection, computerSelection) {
     }
 }
 
-function game() {
-    let wins = 0, losses = 0, ties = 0;
-    let result = '', playerInput;
-    for (let i = 0; i < 5; i++) {
-        playerInput = prompt();
-        while (!validInput(playerInput)) {
-            console.log("Please give a valid input. (rock/paper/scissors)")
-            playerInput = prompt();
-        }
-        result = gameInstance(playerInput,"rock");
-        if (result.includes("You lose"))
+
+let wins = 0, losses = 0, ties = 0;
+let rock = document.querySelector('#rock');
+let paper = document.querySelector('#paper');
+let scissors = document.querySelector('#scissors');
+let para = document.querySelector('.paragraph');
+let tryAgain = document.querySelector('.restart');
+
+if (wins + losses + ties < 5) {
+    rock.addEventListener('click', () => {
+        let result = gameInstance('rock', getComputerChoice());
+        if (result.includes("You lose")) {
             losses++;
-        else if (result.includes("You win"))
+            para.textContent = "You lose";
+        }
+        else if (result.includes("You win")) {
             wins++;
-        else
-            ties++;
-        console.log(result);
-    }
+            para.textContent = "You win";
+        }
+        else {
+            ties++
+            para.textContent = "Tie"
+        }
 
-    if(ties == 5 || wins == losses)
-        console.log("Nobody wins the set.");
-    else if (wins > losses)
-        console.log("You won the set!");
-    else
-        console.log("You lose the set.");
+        if (wins + ties + losses >= 5) {
+            if (ties == 5 || wins == losses)
+                para.textContent = "Nobody wins the set. Try again?";
+            else if (wins > losses)
+                para.textContent = "You won the set! Play again?";
+            else
+                para.textContent = "You lose the set. Try again?";
+            tryAgain.style.visibility = "visible";
+            rock.disabled = true;
+            paper.disabled = true;
+            scissors.disabled = true;
+        }
+    });
 
+    paper.addEventListener('click', () => {
+        let result = gameInstance('paper', getComputerChoice());
+        if (result.includes("You lose")) {
+            losses++;
+            para.textContent = "You lose";
+        }
+        else if (result.includes("You win")) {
+            wins++;
+            para.textContent = "You win";
+        }
+        else {
+            ties++
+            para.textContent = "Tie"
+        }
+
+        if (wins + ties + losses >= 5) {
+            if (ties == 5 || wins == losses)
+                para.textContent = "Nobody wins the set. Try again?";
+            else if (wins > losses)
+                para.textContent = "You won the set! Play again?";
+            else
+                para.textContent = "You lose the set. Try again?";
+            tryAgain.style.visibility = "visible";
+            rock.disabled = true;
+            paper.disabled = true;
+            scissors.disabled = true;
+        }
+    });
+
+    scissors.addEventListener('click', () => {
+        let result = gameInstance('scissors', getComputerChoice());
+        if (result.includes("You lose")) {
+            losses++;
+            para.textContent = "You lose";
+        }
+        else if (result.includes("You win")) {
+            wins++;
+            para.textContent = "You win";
+        }
+        else {
+            ties++
+            para.textContent = "Tie"
+        }
+
+        if (wins + ties + losses >= 5) {
+            if (ties == 5 || wins == losses)
+                para.textContent = "Nobody wins the set. Try again?";
+            else if (wins > losses)
+                para.textContent = "You won the set! Play again?";
+            else
+                para.textContent = "You lose the set. Try again?";
+            tryAgain.style.visibility = "visible";
+            rock.disabled = true;
+            paper.disabled = true;
+            scissors.disabled = true;
+        }
+    });
 }
-console.log(game());
+
+tryAgain.addEventListener('click', () => {
+    wins = 0;
+    losses = 0;
+    ties = 0;
+    para.textContent = "";
+    rock.disabled = false;
+    paper.disabled = false;
+    scissors.disabled = false;
+    tryAgain.style.visibility = "hidden";
+})
+
+
+
